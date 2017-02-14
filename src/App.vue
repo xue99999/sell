@@ -18,27 +18,28 @@
 
 <script>
 import header from 'components/header/header'
-import goods from 'components/goods/goods'
+
+const ERR_OK = 0;
 
 export default {
   name: 'app',
   data() {
     return {
-      seller: '21323'
+      seller: {}
     }
-  },
-  components: {
-    'v-header': header,
-    goods
   },
   created() {
     this.$http.get('/api/seller').then( res => {
-      res = res.body;
-      if (res.errno === 0) {
-        this.seller = res.data;
+      if (res.body.errno === ERR_OK) {
+        this.seller = res.body.data;
+        console.log(this.seller)
       }
     })
+  },
+  components: {
+    'v-header': header
   }
+  
 }
 </script>
 
