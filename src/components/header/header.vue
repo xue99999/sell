@@ -13,9 +13,13 @@
 					{{seller.description}}/{{seller.deliveryTime}}分钟送达
 				</div>
 				<div v-if="seller.supports" class="support">
-					<span class="icon"></span>
+					<span class="icon" :class="classMap[seller.supports[0].type]"></span>
 					<span class="text">{{seller.supports[0].description}}</span>
 				</div>
+			</div>
+			<div v-if="seller.supports" class="support-count">
+				<span class="count">{{seller.supports.length}}</span>
+				<i class="icon-keyboard_arrow_right">123</i>
 			</div>
 		</div>
 	</div>
@@ -24,22 +28,49 @@
 <script>
 	export default {
 		name: 'header',
-		props: ['seller']
+		props: ['seller'],
+		created() {
+			this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special'];
+		}
 	}
 </script>
 
 <style>
 	.header {
 		color: #fff;
-		background-color: #000;
+		background-color: rgba(7,17,27,0.5);
 	}
 	.content-wrap {
+		position: relative;
 		padding: 24px 12px 18px 24px; 
 		font-size: 0;
+	}
+	.support-count {
+		position: absolute;
+		right: 12px;
+		bottom: 18px;
+		background-color: rgba(0,0,0,0.2);
+		padding: 0 8px;
+		border-radius: 7px;
+		height: 24px;
+		line-height: 24px;
+		text-align: center;
+	}
+	.count {
+		font-size: 10px;
+		vertical-align: top;
+	}
+	.icon-keyboard_arrow_right {
+		width: 20px;
+		height: 20px;
+		display: inline-block;
 	}
 	.avatar {
 		display: inline-block;
 		vertical-align: top;
+	}
+	.avatar img {
+		border-radius: 2px;
 	}
 	.content {
 		display: inline-block;
@@ -69,7 +100,31 @@
 		line-height: 12px;
 		margin: 8px 0 10px 0;
 	}
-	.support {
+	.icon {
+		display: inline-block;
+		vertical-align: top;
+		width: 12px;
+		height: 12px;
+		margin-right: 4px;
+		background-size: 12px 12px;
+		background-repeat: no-repeat; 
+	}
+	.icon.decrease {
+		background-image: url('decrease_1@2x.png');
+	}
+	.icon.discount {
+		background-image: url('discount_1@2x.png');
+	}
+	.icon.guarantee {
+		background-image: url('guarantee_1@2x.png');
+	}
+	.icon.invoice {
+		background-image: url('invoice_1@2x.png');
+	}
+	.icon.special {
+		background-image: url('special_1@2x.png');
+	}
+	.text {
 		font-size: 10px;
 		line-height: 12px;
 	}

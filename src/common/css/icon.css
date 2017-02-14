@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'sell-icon';
-  src:  url('fonts/sell-icon.eot?dq4kch');
-  src:  url('fonts/sell-icon.eot?dq4kch#iefix') format('embedded-opentype'),
-    url('fonts/sell-icon.ttf?dq4kch') format('truetype'),
-    url('fonts/sell-icon.woff?dq4kch') format('woff'),
-    url('fonts/sell-icon.svg?dq4kch#sell-icon') format('svg');
+  src:  url('../fonts/sell-icon.eot?dq4kch');
+  src:  url('../fonts/sell-icon.eot?dq4kch#iefix') format('embedded-opentype'),
+    url('../fonts/sell-icon.ttf?dq4kch') format('truetype'),
+    url('../fonts/sell-icon.woff?dq4kch') format('woff'),
+    url('../fonts/sell-icon.svg?dq4kch#sell-icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
