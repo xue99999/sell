@@ -18,8 +18,8 @@
 				</div>
 			</div>
 			<div v-if="seller.supports" class="support-count">
-				<span class="count">{{seller.supports.length}}</span>
-				<i class="icon-keyboard_arrow_right">123</i>
+				<span class="count">{{seller.supports.length}}个</span>
+				<i class="icon-keyboard_arrow_right"></i>
 			</div>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 	.support-count {
 		position: absolute;
 		right: 12px;
-		bottom: 18px;
+		bottom: 14px;
 		background-color: rgba(0,0,0,0.2);
 		padding: 0 8px;
 		border-radius: 7px;
@@ -60,10 +60,10 @@
 		font-size: 10px;
 		vertical-align: top;
 	}
-	.icon-keyboard_arrow_right {
-		width: 20px;
-		height: 20px;
-		display: inline-block;
+	.icon-keyboard_arrow_right:before {
+		margin-left: 2px;
+		line-height: 24px;
+		font-size: 10px;
 	}
 	.avatar {
 		display: inline-block;
