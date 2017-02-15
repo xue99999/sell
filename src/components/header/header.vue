@@ -22,6 +22,14 @@
 				<i class="icon-keyboard_arrow_right"></i>
 			</div>
 		</div>
+		<div class="bulletin-wrap">
+			<span class="bulletin-title"></span>
+			<span class="bulletin-text">{{seller.bulletin}}</span>
+			<i class="icon-keyboard_arrow_right"></i>
+		</div>
+		<div class="background">
+			<img  width="100%" height="100%" :src="seller.avatar" alt="">
+		</div>
 	</div>
 </template>
 
@@ -37,6 +45,7 @@
 
 <style>
 	.header {
+		position: relative;
 		color: #fff;
 		background-color: rgba(7,17,27,0.5);
 	}
@@ -60,7 +69,7 @@
 		font-size: 10px;
 		vertical-align: top;
 	}
-	.icon-keyboard_arrow_right:before {
+	.support-count .icon-keyboard_arrow_right:before {
 		margin-left: 2px;
 		line-height: 24px;
 		font-size: 10px;
@@ -127,5 +136,50 @@
 	.text {
 		font-size: 10px;
 		line-height: 12px;
+	}
+	.bulletin-wrap {
+		position: relative;
+		background-color: rgba(7,17,27,0.2);
+		height: 28px;
+		line-height: 28px;
+		padding: 0 22px 0 12px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		font-size: 0;
+	}
+	.bulletin-title {
+		display: inline-block;
+		width: 22px;
+		height: 12px;
+		background-image: url('bulletin@2x.png');
+		background-size: 22px 12px;
+		background-repeat: no-repeat;
+		vertical-align: top;
+		margin-top: 8px; 
+	}
+	.bulletin-text {
+		vertical-align: top;
+    	margin:0 4px;
+		display: inline-block;
+		font-size: 10px;
+		line-height: 28px;
+	}
+	.bulletin-wrap .icon-keyboard_arrow_right:before {
+		position: absolute;
+		font-size: 10px;
+		z-index: 9;
+		right: 18px;
+		top: 8px;
+		background-color: red;
+	}
+	.background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		filter: blur(10px);
 	}
 </style>
