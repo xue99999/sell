@@ -17,12 +17,12 @@
 					<span class="text">{{seller.supports[0].description}}</span>
 				</div>
 			</div>
-			<div v-if="seller.supports" class="support-count">
+			<div v-if="seller.supports" class="support-count" @click="showDetail">
 				<span class="count">{{seller.supports.length}}个</span>
 				<i class="icon-keyboard_arrow_right"></i>
 			</div>
 		</div>
-		<div class="bulletin-wrap">
+		<div class="bulletin-wrap" @click="showDetail">
 			<span class="bulletin-title"></span>
 			<span class="bulletin-text">{{seller.bulletin}}</span>
 			<i class="icon-keyboard_arrow_right"></i>
@@ -30,20 +30,64 @@
 		<div class="background">
 			<img  width="100%" height="100%" :src="seller.avatar" alt="">
 		</div>
+		<div v-show="detailShow" class="detail">
+			<div class="detail-wrap clearfix">
+				<div class="detail-main">
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+					<p>{{seller.bulletin}}</p>
+				</div>
+			</div>
+			<div class="detail-close" @click="close">
+				<i class="icon-close"></i>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
 	export default {
 		name: 'header',
+		data() {
+			return {
+
+				detailShow: false
+			}
+		},
 		props: ['seller'],
 		created() {
 			this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special'];
+		},
+		methods: {
+			showDetail() {
+				this.detailShow = true;
+			},
+			close() {
+				this.detailShow = false;
+			}
 		}
 	}
 </script>
 
 <style>
+	.clearfix {
+		display: inline-block;
+	}
+	.clearfix:after {
+		display: block;
+		height: 0;
+		line-height: 0;
+		visibility: hidden;
+		clear: both;
+		content: '.';
+	}
 	.header {
 		position: relative;
 		color: #fff;
@@ -181,5 +225,31 @@
 		height: 100%;
 		z-index: -1;
 		filter: blur(10px);
+	}
+	.detail {
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		left: 0;
+		top: 0;
+		z-index: 99;
+		background-color: rgba(7,17,27,0.8);
+		overflow: auto;
+	}
+	.detail-wrap {
+		min-height: 100%;
+	}
+	.detail-main {
+		margin-top: 64px;
+		padding-bottom: 64px;
+	}
+	.detail-close {
+		position: relative;
+		width: 32px;
+		height: 32px;
+		margin: -64px auto 0 auto;
+		font-size: 32px;
+		color: rgba(255,255,255,0.5);
+		clear: both;
 	}
 </style>
