@@ -33,16 +33,10 @@
 		<div v-show="detailShow" class="detail">
 			<div class="detail-wrap clearfix">
 				<div class="detail-main">
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
-					<p>{{seller.bulletin}}</p>
+					<h1 class="name">{{ seller.name }}</h1>
+					<div class="coupon-wrap">
+						
+					</div>
 				</div>
 			</div>
 			<div class="detail-close" @click="close">
@@ -92,6 +86,7 @@
 		position: relative;
 		color: #fff;
 		background-color: rgba(7,17,27,0.5);
+		overflow: hidden;
 	}
 	.content-wrap {
 		position: relative;
@@ -238,10 +233,18 @@
 	}
 	.detail-wrap {
 		min-height: 100%;
+		width: 100%;
 	}
 	.detail-main {
 		margin-top: 64px;
 		padding-bottom: 64px;
+	}
+	.detail-main .name {
+		font-size: 16px;
+		line-height: 16px;
+		font-weight: 700;
+		text-align: center;
+		margin-bottom: 16px;
 	}
 	.detail-close {
 		position: relative;
