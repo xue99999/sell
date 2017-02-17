@@ -30,19 +30,39 @@
 		<div class="background">
 			<img  width="100%" height="100%" :src="seller.avatar" alt="">
 		</div>
-		<div v-show="detailShow" class="detail">
-			<div class="detail-wrap clearfix">
-				<div class="detail-main">
-					<h1 class="name">{{ seller.name }}</h1>
-					<div class="coupon-wrap">
-						
+		<transition name="detail">	
+			<div v-show="detailShow" class="detail">
+				<div class="detail-wrap clearfix">
+					<div class="detail-main">
+						<h1 class="name">{{ seller.name }}</h1>
+						<div class="coupon-wrap">
+							<div class="line"></div>
+							<div class="coupon">优惠信息</div>
+							<div class="line"></div>
+						</div>
+						<ul class="supports" v-if="seller.supports">
+							<li class="supports-item" v-for="(item, index) in seller.supports">
+								<span class="icon" :class="classMap[item.type]"></span>
+								<span class="text">
+									{{item.description}}
+								</span>
+							</li>
+						</ul>
+						<div class="coupon-wrap">
+							<div class="line"></div>
+							<div class="coupon">商家公告</div>
+							<div class="line"></div>
+						</div>
+						<div class="bulletin">
+							<p>{{seller.bulletin}}</p>
+						</div>
 					</div>
 				</div>
+				<div class="detail-close" @click="close">
+					<i class="icon-close"></i>
+				</div>
 			</div>
-			<div class="detail-close" @click="close">
-				<i class="icon-close"></i>
-			</div>
-		</div>
+		</transition>
 	</div>
 </template>
 
@@ -99,7 +119,7 @@
 		bottom: 14px;
 		background-color: rgba(0,0,0,0.2);
 		padding: 0 8px;
-		border-radius: 7px;
+		border-radius: 14px;
 		height: 24px;
 		line-height: 24px;
 		text-align: center;
@@ -148,7 +168,7 @@
 		line-height: 12px;
 		margin: 8px 0 10px 0;
 	}
-	.icon {
+	.support .icon {
 		display: inline-block;
 		vertical-align: top;
 		width: 12px;
@@ -157,19 +177,19 @@
 		background-size: 12px 12px;
 		background-repeat: no-repeat; 
 	}
-	.icon.decrease {
+	.support .icon.decrease {
 		background-image: url('decrease_1@2x.png');
 	}
-	.icon.discount {
+	.support .icon.discount {
 		background-image: url('discount_1@2x.png');
 	}
-	.icon.guarantee {
+	.support .icon.guarantee {
 		background-image: url('guarantee_1@2x.png');
 	}
-	.icon.invoice {
+	.support .icon.invoice {
 		background-image: url('invoice_1@2x.png');
 	}
-	.icon.special {
+	.support .icon.special {
 		background-image: url('special_1@2x.png');
 	}
 	.text {
@@ -185,7 +205,6 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		font-size: 0;
 	}
 	.bulletin-title {
 		display: inline-block;
@@ -200,7 +219,6 @@
 	.bulletin-text {
 		vertical-align: top;
     	margin:0 4px;
-		display: inline-block;
 		font-size: 10px;
 		line-height: 28px;
 	}
@@ -210,7 +228,6 @@
 		z-index: 9;
 		right: 18px;
 		top: 8px;
-		background-color: red;
 	}
 	.background {
 		position: absolute;
@@ -230,6 +247,16 @@
 		z-index: 99;
 		background-color: rgba(7,17,27,0.8);
 		overflow: auto;
+		transition: all .5s;
+	}
+	.detail-enter-active {
+	  transition: all .3s ease;
+	}
+	.detail-leave-active {
+	  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+	}
+	.detail-enter, .detail-leave-active {
+	  opacity: 0;
 	}
 	.detail-wrap {
 		min-height: 100%;
@@ -244,7 +271,6 @@
 		line-height: 16px;
 		font-weight: 700;
 		text-align: center;
-		margin-bottom: 16px;
 	}
 	.detail-close {
 		position: relative;
@@ -254,5 +280,74 @@
 		font-size: 32px;
 		color: rgba(255,255,255,0.5);
 		clear: both;
+	}
+	.coupon-wrap {
+		display: flex;
+		width: 80%;
+		margin: 28px auto 24px auto;
+	}
+	.line {
+		flex: 1;
+		position: relative;
+		top: -6px;
+		border-bottom: 1px solid rgba(255,255,255,0.2)
+	}
+	.coupon {
+		flex: 1;
+		padding: 0 12px;
+		font-size: 14px;
+		line-height: 14px;
+		font-weight: 700;
+		text-align: center;
+	}
+	.supports {
+		width: 80%;
+		margin: 0 auto;
+	}
+	.supports-item {
+		margin-bottom: 12px;
+		font-size: 0;
+	}
+	.supports-item:last-child {
+		margin-bottom: 0;
+	}
+	.supports .icon {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		background-size: 16px 16px;
+		background-repeat: no-repeat;
+		margin-right: 6px;
+		vertical-align: top;
+	}
+	.supports .icon.decrease {
+		background-image: url('decrease_2@2x.png');
+	}
+	.supports .icon.discount {
+		background-image: url('discount_2@2x.png');
+	}
+	.supports .icon.guarantee {
+		background-image: url('guarantee_2@2x.png');
+	}
+	.supports .icon.invoice {
+		background-image: url('invoice_2@2x.png');
+	}
+	.supports .icon.special {
+		background-image: url('special_2@2x.png');
+	}
+	.supports .text {
+		line-height: 16px;
+		font-weight: 200;
+		color: #fff;
+		font-size: 12px;
+	}
+	.bulletin {
+		width: 80%;
+		margin: 0 auto;
+	}
+	.bulletin p {
+		padding: 0 12px;
+		font-size: 12px;
+		line-height: 24px;
 	}
 </style>
