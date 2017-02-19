@@ -34,7 +34,7 @@ export default {
         this.seller = res.body.data;
         console.log(this.seller)
       }
-    })
+    });
   },
   components: {
     'v-header': header
