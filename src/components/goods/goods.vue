@@ -2,7 +2,7 @@
 	<div class="goods">
 		<div class="menu-wrap" ref="menu">
 			<ul>
-				<li class="menu-item" v-for="item in goods">
+				<li class="menu-item" v-for="(item, index) in goods" :class="{ 'current': currentIndex === index }" @click="selectMenu(index, $event)">
 					<span class="text">
 						<span v-show="item.type > 0" class="icon" :class="classMap[item.type]"></span> {{item.name}}
 					</span>
@@ -33,16 +33,19 @@
 				</li>
 			</ul>
 		</div>
+		<shopcart></shopcart>
 	</div>
 </template>
 
 <script>
 	import BScroll from 'better-scroll';
+	import shopcart from '../shopcart/shopcart'
 
 	const ERR_OK = 0;
 
 	export default {
 		name: 'goods',
+		components: {shopcart},
 		data() {
 			return {
 				goods: [],
@@ -57,6 +60,7 @@
 		        this.goods = res.body.data;
 		        this.$nextTick(() => {
 		        	this._initScroll();
+		        	this.getHeight();
 		        });
 		      }
 		    });
@@ -67,7 +71,7 @@
 					let height1 = this.listHeight[i];
 					let height2 = this.listHeight[i + 1];
 					
-					if (!height2 || this.scrollY > height1 && this.scrollY < height2) {
+					if (!height2 || this.scrollY >= height1 && this.scrollY < height2) {
 						return i;
 					}
 				}
@@ -76,7 +80,10 @@
 		},
 		methods: {
 			_initScroll() {
-				this.menuScroll = new BScroll(this.$refs.menu, {});
+				this.menuScroll = new BScroll(this.$refs.menu, {
+					click: true
+					// 是否启用click事件
+				});
 
 				this.foodsScroll = new BScroll(this.$refs.foods, {
 					probeType: 3
@@ -96,7 +103,14 @@
 					height += item.clientHeight;
 					this.listHeight.push(height);
 				}
-
+			},
+			selectMenu(idx, event) {
+				if (!event._constructed) {
+					return;
+				}
+				let foodList = this.$refs.foods.getElementsByClassName('food-list-hook');
+				let el = foodList[idx];
+				this.foodsScroll.scrollToElement(el, 300);
 			}
 		}
 	}
@@ -109,7 +123,7 @@
 		position: absolute;
 		top: 174px;
 		bottom: 46px;
-		overflow: hidden; 
+		overflow: hidden;
 	}
 	.menu-wrap {
 		flex: 0 0 80px;
@@ -125,6 +139,16 @@
 		width: 56px;
 		padding: 0 12px;
 	}
+	.menu-item.current {
+		position: relative;
+		margin-top: -1px;
+		z-index: 10;
+		background-color: #fff;
+		font-weight: 700;
+	}
+	.menu-item.current .text {
+		border-bottom: none;
+	}
 	.menu-item .icon {
 		display: inline-block;
 		vertical-align: top;
@@ -132,7 +156,7 @@
 		height: 12px;
 		margin-right: 2px;
 		background-size: 12px 12px;
-		background-repeat: no-repeat; 
+		background-repeat: no-repeat;
 	}
 	.menu-item .icon.decrease {
 		background-image: url('decrease_3@2x.png');
