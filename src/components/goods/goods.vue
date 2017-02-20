@@ -27,25 +27,30 @@
 								<div class="price">
 									<span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
 								</div>
+								<div class="cart-wrap">
+									<cartControl :food="food"></cartControl>
+								</div>
 							</div>
 						</li>
 					</ul>
 				</li>
 			</ul>
 		</div>
-		<shopcart></shopcart>
+		<shopcart :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice" :selectFoods="[{ price: 6, count: 2}]"></shopcart>
 	</div>
 </template>
 
 <script>
 	import BScroll from 'better-scroll';
-	import shopcart from '../shopcart/shopcart'
+	import shopcart from 'components/shopcart/shopcart'
+	import cartControl from 'components/cartControl/cartControl'
 
 	const ERR_OK = 0;
 
 	export default {
 		name: 'goods',
-		components: {shopcart},
+		props: ['seller'],
+		components: {shopcart, cartControl},
 		data() {
 			return {
 				goods: [],
@@ -229,6 +234,11 @@
 	.food-list .price {
 		line-height: 24px;
 		font-weight: 700;
+	}
+	.food-list .cart-wrap {
+		position: absolute;
+		right: 0;
+		bottom: 12px;
 	}
 	.food-list .price .now {
 		font-size: 14px;
