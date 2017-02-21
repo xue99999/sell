@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <toast ref="toast"></toast>
+    <action-sheet ref="actionSheet" :listItem="listItem" v-on:getIndex="getIndex"></action-sheet>
+    <modal ref="modal" v-on:confirm="confirm"></modal>
+    <button @click="showToast">点我看效果</button>
     <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
@@ -18,6 +22,9 @@
 
 <script>
 import header from 'components/header/header'
+import toast from 'components/toast/toast'
+import actionSheet from 'components/actionSheet/actionSheet'
+import modal from 'components/modal/modal'
 
 const ERR_OK = 0;
 
@@ -25,7 +32,25 @@ export default {
   name: 'app',
   data() {
     return {
-      seller: {}
+      seller: {},
+      listItem: ['下拉菜单1', '下拉菜单2', '下拉菜单3']
+    }
+  },
+  methods:{
+    showToast(){
+      // this.$refs.toast.show('测试','fail');
+      // this.$refs.actionSheet.show();
+      this.$refs.modal.show('模态框','我是薛钧',true,'前往主页','离开');
+      // this.$refs.modal.show('模态框','我是薛钧',false,'知道了');
+    },
+    getIndex(index) {
+      console.log(index);
+      /*
+      * 此处写成功后的回调
+      */
+    },
+    confirm() {
+      console.log('用户点击确定按钮');
     }
   },
   created() {
@@ -37,9 +62,11 @@ export default {
     });
   },
   components: {
-    'v-header': header
+    'v-header': header,
+    'toast': toast,
+    'actionSheet': actionSheet,
+    'modal': modal
   }
-  
 }
 </script>
 
