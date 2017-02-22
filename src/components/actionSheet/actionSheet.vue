@@ -1,22 +1,27 @@
 <template>
-    <div class="actionSheet" :class="isShow ? 'show' : 'hide'">
-        <div class="weui-mask" id="iosMask" @click="hide"></div>
-        <div class="weui-actionsheet weui-actionsheet_toggle">
-            <div class="weui-actionsheet__menu">
-                <div v-for="(item, index) in listItem" class="weui-actionsheet__cell" @click="itemtap(index)">{{item}}</div>
-            </div>
-            <div class="weui-actionsheet__action" @click="hide">
-                <div class="weui-actionsheet__cell" >取消</div>
-            </div>
+    <transition name="fade">
+        <div id="actionSheet" v-show="isShow">
+            <div class="weui-mask" @click="hide"></div>
+            <transition enter-class="actionSheet-enter" enter-active-class="actionSheet-enter-active" leave-active-class="actionSheet-leave-active">
+                <div class="weui-actionsheet weui-actionsheet_toggle" v-show="showAnimate">
+                    <div class="weui-actionsheet__menu">
+                        <div v-for="(item, index) in listItem" class="weui-actionsheet__cell" @click="itemtap(index)">{{item}}</div>
+                    </div>
+                    <div class="weui-actionsheet__action" @click="hide">
+                        <div class="weui-actionsheet__cell" >取消</div>
+                    </div>
+                </div>
+            </transition>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
     export default {
         data() {
             return {
-                isShow: false
+                isShow: false,
+                showAnimate:false
             }
         },
         props: ['listItem'],
@@ -25,9 +30,13 @@
             // 没有阻止该事件
             show() {
                 this.isShow = true;
+                this.showAnimate = true;
             },
             hide() {
-                this.isShow = false;
+                this.showAnimate = false;
+                setTimeout(()=>{
+                    this.isShow = false;
+                },280);
             },
             itemtap(index){
                 this.$emit('getIndex', index);
@@ -42,11 +51,21 @@
 </script>
 
 <style>
-    .hide {
-        opacity:0; display: none;
+    #actionSheet {
+        position: relative;
+        z-index: 1000;
     }
-    .show {
-        opacity:1; display: block;
+    .actionSheet-enter-active, .actionSheet-leave-active {
+      transition: all .3s;
+    }
+    .actionSheet-enter, .actionSheet-leave-active {
+      -webkit-transform: translate3d(0,100%,0) !important;
+    }
+    .fade-enter-active, .fade-leave-active {
+      transition: all .3s
+    }
+    .fade-enter, .fade-leave-active {
+      opacity: 0;
     }
 </style>
 

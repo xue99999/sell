@@ -17,6 +17,7 @@
       </div>
     </div>
     <router-view :seller="seller"></router-view>
+    
   </div>
 </template>
 
@@ -40,8 +41,8 @@ export default {
     showToast(){
       // this.$refs.toast.show('测试','fail');
       // this.$refs.actionSheet.show();
-      this.$refs.modal.show('模态框','我是薛钧',true,'前往主页','离开');
-      // this.$refs.modal.show('模态框','我是薛钧',false,'知道了');
+      // this.$refs.modal.show('模态框','我是薛钧',true,'前往主页','离开');
+      this.$refs.modal.show('模态框','我是薛钧',false,'知道了');
     },
     getIndex(index) {
       console.log(index);

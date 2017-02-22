@@ -1,13 +1,13 @@
 <template>
-<transition name="fade">
-    <div id="toast" :class="isShow ? 'show' : 'hide'">
+    <div id="toast" v-show="isShow">
         <div class="weui-mask_transparent"></div>
-        <div class="weui-toast">
-            <i class="weui-icon_toast" style="font-size:55px;color:#fff;" :class="toastClass"></i>
-            <p class="weui-toast__content">{{title}}</p>
-        </div>
+        <transition enter-class="toast-enter" enter-active-class="toast-enter-active" leave-active-class="toast-leave-active">
+            <div class="weui-toast" v-show="showAnimate">
+                <i class="weui-icon_toast" style="font-size:55px;color:#fff;" :class="toastClass"></i>
+                <p class="weui-toast__content">{{title}}</p>
+            </div>
+        </transition>
     </div>
-</transition>
 </template>
 
 <script>
@@ -16,22 +16,32 @@
             return {
                 isShow: false,
                 title: '已完成',
-                icon: 'success'
+                icon: 'success',
+                showAnimate:false
             }
         },
         methods: {
             show(title, icon, dur) {
                 this.isShow = true;
+                this.showAnimate = true;
                 this.title = title || '已完成';
                 this.icon = icon;
                 dur = dur || 2000;
+
                 setTimeout(() => {
                     this.hide();
                 }, dur);
                 
             },
             hide() {
-                this.isShow = false;
+                this.showAnimate = false;
+                setTimeout(()=>{
+                    this.isShow = false;
+                },280)
+                /*
+                * 这里延迟280ms触发是因为 
+                * display:none 以后,动画就不走了
+                */
             }
         },
         computed: {
@@ -49,17 +59,16 @@
 </script>
 
 <style>
-    .hide {
-        opacity:0; display: none;
+    .toast-enter-active, .toast-leave-active {
+      transition: all .3s
     }
-    .show {
-        opacity:1; display: block;
-    }
-    .fade-enter-active, .fade-leave-active {
-      transition: opacity .3s ease;
-    }
-    .fade-enter, .fade-leave-active {
+    .toast-enter, .toast-leave-active {
       opacity: 0;
+      -webkit-transform: scale(0.2);
+    }
+    #toast {
+        position: relative;
+        z-index: 1000;
     }
 </style>
 

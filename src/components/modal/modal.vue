@@ -1,15 +1,20 @@
 <template>
-    <div class="modal" :class="isShow ? 'show' : 'hide'">
-        <div class="weui-mask"></div>
-        <div class="weui-dialog">
-            <div class="weui-dialog__hd"><strong class="weui-dialog__title">{{title}}</strong></div>
-            <div class="weui-dialog__bd">{{content}}</div>
-            <div class="weui-dialog__ft">
-                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default" v-show="isCancelShow"  @click="hide">{{cancelText}}</a>
-                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="confirm">{{confirmText}}</a>
+    <transition name="fade">
+        <div class="modal" v-show="isShow">
+            <div class="weui-mask"></div>
+                <transition enter-class="modal-enter" enter-active-class="modal-enter-active" leave-active-class="modal-leave-active">
+                    <div class="weui-dialog" v-show="showAnimate">
+                        <div class="weui-dialog__hd"><strong class="weui-dialog__title">{{title}}</strong></div>
+                        <div class="weui-dialog__bd">{{content}}</div>
+                        <div class="weui-dialog__ft">
+                            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default" v-show="isCancelShow"  @click="hide">{{cancelText}}</a>
+                            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="confirm">{{confirmText}}</a>
+                        </div>
+                    </div>
+                </transition>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -21,7 +26,8 @@
                 isCancelShow: false,
                 isShow: false,
                 confirmText: '确定',
-                cancelText: '取消'
+                cancelText: '取消',
+                showAnimate:false
             }
         },
         methods: {
@@ -32,9 +38,13 @@
                 this.confirmText = confirmText || '确定';
                 this.cancelText = cancelText || '取消';
                 this.isShow = true;
+                this.showAnimate = true;
             },
             hide() {
-                this.isShow = false;
+                this.showAnimate = false;
+                setTimeout(()=>{
+                    this.isShow = false;
+                },280);
             },
             confirm() {
                 this.hide();
@@ -45,7 +55,17 @@
 </script>
 
 <style>
-    
+    .modal {
+        position: relative;
+        z-index: 1000;
+    }
+    .modal-enter-active, .modal-leave-active {
+      transition: all .3s
+    }
+    .modal-enter, .modal-leave-active {
+      opacity: 0;
+      -webkit-transform: translate(-50%, -50%) scale(0.2) !important;
+    }
 </style>
 
 <!-- 需要给本组件里面传输的数据
