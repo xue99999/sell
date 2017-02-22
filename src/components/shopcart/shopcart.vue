@@ -6,7 +6,7 @@
                     <div class="logo" :class="{'highlight' : totalCount > 0}">
                         <i class="icon-shopping_cart" :class="{'highlight' : totalCount > 0}"></i>
                     </div>
-                    <div class="num">{{totalCount}}</div>
+                    <div v-show="totalCount > 0" class="num">{{totalCount}}</div>
                 </div>
                 <div class="price" :class="{'highlight' : totalCount > 0}">
                     ￥{{totalPrice}}
@@ -36,7 +36,7 @@
             totalPrice() {
                 let total = 0;
                 this.selectFoods.map(item => {
-                    total = item.price * item.count
+                    total += item.price * item.count
                 });
                 return total;
             },
@@ -153,6 +153,7 @@
     .con-left .desc {
         display: inline-block;
         margin-left: 12px;
+        font-size: 14px;
     }
     .con-right {
         flex: 0 0 105px;

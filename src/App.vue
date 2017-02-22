@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <toast ref="toast"></toast>
+    <!-- <toast ref="toast"></toast>
     <action-sheet ref="actionSheet" :listItem="listItem" v-on:getIndex="getIndex"></action-sheet>
     <modal ref="modal" v-on:confirm="confirm"></modal>
-    <button @click="showToast">点我看效果</button>
+    <button @click="showToast">点我看效果</button> -->
     <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
