@@ -133,7 +133,7 @@
 	}
 </script>
 
-<style>
+<style lang="stylus">
 	.goods {
 		display: flex;
 		width: 100%;
