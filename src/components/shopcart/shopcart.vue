@@ -1,12 +1,12 @@
 <template>
     <div class="shopcart">
-        <div class="con">
+        <div class="con" @click="toggleList">
             <div class="con-left">
                 <div class="logo-wrap">
                     <div class="logo" :class="{'highlight' : totalCount > 0}">
                         <i class="icon-shopping_cart" :class="{'highlight' : totalCount > 0}"></i>
                     </div>
-                    <div class="num">{{totalCount}}</div>
+                    <div v-show="totalCount > 0" class="num">{{totalCount}}</div>
                 </div>
                 <div class="price" :class="{'highlight' : totalCount > 0}">
                     ￥{{totalPrice}}
@@ -21,22 +21,45 @@
                 </div>
             </div>
         </div>
+        <div v-show="listShow" :class="{'active': listShow}" class="shopcart-list">
+            <div class="list-header">
+                <h1 class="title">购物车</h1>
+                <span class="empty">清空</span>
+            </div>
+            <div class="list-con" ref="listCon">
+                <ul>
+                    <li class="food" v-for="food in selectFoods">
+                        <span class="name">{{food.name}}</span>
+                        <div class="price">
+                            <span>￥{{food.price*food.count}}</span>
+                        </div>
+                        <div class="cartControl-wrap">
+                            <cartControl :food="food"></cartControl>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import BScroll from 'better-scroll';
+    import cartControl from 'components/cartControl/cartControl';
+
     export default {
         data() {
             return {
-
+                fold: false
             }
         },
         props: ['minPrice', 'deliveryPrice', 'selectFoods'],
+        components: { cartControl },
         computed: {
             totalPrice() {
                 let total = 0;
                 this.selectFoods.map(item => {
-                    total = item.price * item.count
+                    total += item.price * item.count
                 });
                 return total;
             },
@@ -63,6 +86,33 @@
                 } else {
                     return 'enough';
                 }
+            },
+            listShow() {
+                if (!this.totalCount) {
+                    this.fold = false;
+                    return false;
+                }
+                let show = this.fold;
+                if (show) {
+                    this.$nextTick(() => {
+                        if (!this.scroll) {
+                            this.scroll = new BScroll(this.$refs.listCon, {
+                                click: true
+                            });
+                        } else {
+                            this.scroll.refresh();
+                        }
+                    })
+                }
+                return show;
+            }
+        },
+        methods: {
+            toggleList() {
+                if (!this.totalCount) {
+                    return;
+                }
+                this.fold = !this.fold;
             }
         }
     }
@@ -153,6 +203,7 @@
     .con-left .desc {
         display: inline-block;
         margin-left: 12px;
+        font-size: 14px;
     }
     .con-right {
         flex: 0 0 105px;
@@ -170,4 +221,55 @@
         background-color: #00b43c;
         color: #fff;
     }
+</style>
+<style lang="stylus">
+    .shopcart-list
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: -1
+        transition: all .3s
+        &.active
+            top: -300px
+        .list-header
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid rgba(7,17,27,0.1);
+            background-color: #f3f5f7;
+            padding: 0 18px;
+            box-sizing: border-box;
+            .title 
+                font-size: 14px;
+                float: left;
+                color: rgb(7,17,27);
+            .empty
+                font-size: 12px;
+                float: right;
+                color: rgb(0,160,220);
+        .list-con
+            box-sizing: border-box
+            background-color: #fff
+            padding: 0 18px
+            max-height: 217px
+            overflow: hidden
+            .food
+                position: relative
+                height: 24px
+                padding: 12px 0
+                .name
+                    color: rgb(7,17,27)
+                    font-size: 14px
+                    line-height: 24px
+                .price
+                    position: absolute
+                    font-size: 14px
+                    font-weight: 700
+                    color: rgb(240,20,20)
+                    right: 90px
+                    top: 12px
+                .cartControl-wrap
+                    position: absolute
+                    right: 0
+                    top: 6px           
 </style>

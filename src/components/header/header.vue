@@ -243,7 +243,7 @@
 		width: 100%;
 		left: 0;
 		top: 0;
-		z-index: 99;
+		z-index: 100;
 		background-color: rgba(7,17,27,0.8);
 		overflow: auto;
 		transition: all .5s;

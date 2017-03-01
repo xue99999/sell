@@ -36,7 +36,7 @@
 				</li>
 			</ul>
 		</div>
-		<shopcart :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice" :selectFoods="[{ price: 6, count: 2}]"></shopcart>
+		<shopcart :select-foods="selectFoods" :minPrice="seller.minPrice" :deliveryPrice="seller.deliveryPrice"></shopcart>
 	</div>
 </template>
 
@@ -81,6 +81,17 @@
 					}
 				}
 				return 0;
+			},
+			selectFoods() {
+				let foods = []
+				this.goods.map(good => {
+					good.foods.map(food => {
+						if (food.count) {
+							foods.push(food)
+						}
+					})
+				})
+				return foods;
 			}
 		},
 		methods: {
@@ -91,6 +102,7 @@
 				});
 
 				this.foodsScroll = new BScroll(this.$refs.foods, {
+					click: true,
 					probeType: 3
 					//这个配置是为了实时得监控scroll事件
 				});
@@ -121,7 +133,7 @@
 	}
 </script>
 
-<style>
+<style lang="stylus">
 	.goods {
 		display: flex;
 		width: 100%;
