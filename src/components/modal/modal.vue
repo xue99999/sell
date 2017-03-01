@@ -44,7 +44,7 @@
                 this.showAnimate = false;
                 setTimeout(()=>{
                     this.isShow = false;
-                },280);
+                },290);
             },
             confirm() {
                 this.hide();

@@ -3,7 +3,7 @@
     <toast ref="toast"></toast>
     <action-sheet ref="actionSheet" :listItem="listItem" v-on:getIndex="getIndex"></action-sheet>
     <modal ref="modal" v-on:confirm="confirm"></modal>
-    <button @click="showToast">点我看效果</button>
+    <button @click="showToast">12323123</button>
     <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
@@ -17,7 +17,6 @@
       </div>
     </div>
     <router-view :seller="seller"></router-view>
-    
   </div>
 </template>
 
