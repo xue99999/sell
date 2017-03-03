@@ -1,45 +1,54 @@
 <template>
-    <div class="shopcart">
-        <div class="con" @click="toggleList">
-            <div class="con-left">
-                <div class="logo-wrap">
-                    <div class="logo" :class="{'highlight' : totalCount > 0}">
-                        <i class="icon-shopping_cart" :class="{'highlight' : totalCount > 0}"></i>
+    <div>
+        <div class="shopcart">
+            <div class="con" @click="toggleList">
+                <div class="con-left">
+                    <div class="logo-wrap">
+                        <div class="logo" :class="{'highlight' : totalCount > 0}">
+                            <i class="icon-shopping_cart" :class="{'highlight' : totalCount > 0}"></i>
+                        </div>
+                        <div v-show="totalCount > 0" class="num">{{totalCount}}</div>
                     </div>
-                    <div v-show="totalCount > 0" class="num">{{totalCount}}</div>
+                    <div class="price" :class="{'highlight' : totalCount > 0}">
+                        ￥{{totalPrice}}
+                    </div>
+                    <div class="desc">
+                        另需配送费￥{{deliveryPrice}}元
+                    </div>
                 </div>
-                <div class="price" :class="{'highlight' : totalCount > 0}">
-                    ￥{{totalPrice}}
-                </div>
-                <div class="desc">
-                    另需配送费￥{{deliveryPrice}}元
+                <div class="con-right">
+                    <div class="pay" @click.stop="pay" :class="payClass">
+                        {{payDesc}}
+                    </div>
                 </div>
             </div>
-            <div class="con-right">
-                <div class="pay" :class="payClass">
-                    {{payDesc}}
+            <transition enter-class="actionSheet-enter" enter-active-class="actionSheet-enter-active" leave-active-class="actionSheet-leave-active">
+                <div v-show="listShow" class="shopcart-list">
+                    <div class="list-header">
+                        <h1 class="title">购物车</h1>
+                        <span class="empty" @click="empty">清空</span>
+                    </div>
+                    <div class="list-con" ref="listCon">
+                        <ul>
+                            <li class="food" v-for="food in selectFoods">
+                                <span class="name">{{food.name}}</span>
+                                <div class="price">
+                                    <span>￥{{food.price*food.count}}</span>
+                                </div>
+                                <div class="cartControl-wrap">
+                                    <cartControl :food="food"></cartControl>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            </transition>
         </div>
-        <div v-show="listShow" :class="{'active': listShow}" class="shopcart-list">
-            <div class="list-header">
-                <h1 class="title">购物车</h1>
-                <span class="empty">清空</span>
+        <transition name="fade">
+            <div class="list-mask" @click="hideListMask" v-show="listShow">
+                
             </div>
-            <div class="list-con" ref="listCon">
-                <ul>
-                    <li class="food" v-for="food in selectFoods">
-                        <span class="name">{{food.name}}</span>
-                        <div class="price">
-                            <span>￥{{food.price*food.count}}</span>
-                        </div>
-                        <div class="cartControl-wrap">
-                            <cartControl :food="food"></cartControl>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -113,6 +122,22 @@
                     return;
                 }
                 this.fold = !this.fold;
+            },
+            empty() {
+                this.selectFoods.map(item => {
+                    item.count = 0;
+                });
+            },
+            hideListMask() {
+                this.fold = false;
+            },
+            pay() {
+                if (this.totalPrice < this.minPrice) {
+                    let diff = this.minPrice - this.totalPrice;
+                    alert(`￥还差${diff}元起送`);
+                } else {
+                    alert(`需支付${this.totalPrice}元`);
+                }
             }
         }
     }
@@ -223,15 +248,36 @@
     }
 </style>
 <style lang="stylus">
+    
+
+    .list-mask
+        position: fixed
+        width: 100%
+        left: 0
+        top: 0
+        height: 100%
+        z-index: 80
+        background-color: rgba(7,17,27,0.6)
+        &.fade-enter-active, &.fade-leave-active {
+          transition: all 0.5s
+        }
+        &.fade-enter, &.fade-leave-active {
+          opacity: 0
+        }
     .shopcart-list
         position: absolute;
         width: 100%;
         left: 0;
         top: 0;
         z-index: -1
-        transition: all .3s
-        &.active
-            top: -300px
+        transition: all 0.3s
+        &.actionSheet-enter-active, &.actionSheet-leave-active {
+          transition: all .3s;
+          -webkit-transform: translate3d(0,-100%,0) !important;
+        }
+        &.actionSheet-enter, &.actionSheet-leave-active {
+            webkit-transform: translate3d(0,0,0)
+        }
         .list-header
             height: 40px;
             line-height: 40px;
