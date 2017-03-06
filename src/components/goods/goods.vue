@@ -158,99 +158,98 @@
 			width: 80px
 			height: 100%
 			background-color: #f3f5f7
-		.menu-item
-			display: table
-			height: 54px
-			line-height: 14px
-			font-size: 12px
-			width: 56px
-			padding: 0 12px
-			&.current
-				position: relative
-				margin-top: -1px
-				z-index: 10
-				background-color: #fff
-				font-weight: 700
-			&.current .text
-				border-bottom: none
-			.icon 
-				display: inline-block
-				vertical-align: top
-				width: 12px
-				height: 12px
-				margin-right: 2px
-				background-size: 12px 12px
-				background-repeat: no-repeat
-				&.decrease 
-				background-image: url('decrease_3@2x.png')
-				&.discount 
-				background-image: url('discount_3@2x.png')
-				&.guarantee 
-				background-image: url('guarantee_3@2x.png')
-				&.invoice 
-				background-image: url('invoice_3@2x.png')
-				&.special
-				background-image: url('special_3@2x.png')
+			.menu-item
+				display: table
+				height: 54px
+				line-height: 14px
+				font-size: 12px
+				width: 56px
+				padding: 0 12px
 				.text
 					display: table-cell
 					vertical-align: middle
 					width: 54px
 					border-bottom: 1px solid rgba(7,17,27,0.1)
-				
-	.foods-wrap 
-		flex: 1
-		.title 
-			height: 26px
-			color: rgb(147,153,159)
-			font-size: 12px
-			line-height: 26px
-			background-color: #f3f5f7
-			padding-left: 12px
-			border-left: 2px solid #d9dde1
-		.food-item
-			position: relative
-			display: flex
-			margin: 18px
-			padding-bottom: 18px
-			border-bottom: 1px solid rgba(7,17,27,0.1)
-		.food-item:last-child 
-			border-bottom: none
-			margin-bottom: 0
-		.icon 
-			flex: 0 0 57px
-			margin-right: 10px
-		.content 
-			flex: 1
-		.name 
-			font-size: 14px
-			line-height: 14px
-			color: rgb(7,17,27)
-			margin: 2px 0 8px 0
-		.desc 
-			margin: 8px 0
-		.extra, .desc
-			font-size: 10px
-			line-height: 10px
-			color: rgb(147,153,159)
-		.count 
-			margin-right: 12px
-		.price 
-			line-height: 24px
-			font-weight: 700
-		.cart-wrap 
-			position: absolute
-			right: 0
-			bottom: 12px
-		.price .now
-			font-size: 14px
-			color: rgb(240,20,20)
-			line-height: 24px
-			margin-right: 8px
-		.price .old
-			text-decoration: line-through
-			font-size: 10px
-			line-height: 24px
-			color: rgb(147,153,159)
-	
+				&.current
+					position: relative
+					margin-top: -1px
+					z-index: 10
+					background-color: #fff
+					font-weight: 700
+					.text
+						border-bottom: none
+				.icon 
+					display: inline-block
+					vertical-align: top
+					width: 12px
+					height: 12px
+					margin-right: 2px
+					background-size: 12px 12px
+					background-repeat: no-repeat
+					&.decrease 
+						background-image: url('./imgs/decrease_3@2x.png')
+					&.discount 
+						background-image: url('./imgs/discount_3@2x.png')
+					&.guarantee 
+						background-image: url('./imgs/guarantee_3@2x.png')
+					&.invoice 
+						background-image: url('./imgs/invoice_3@2x.png')
+					&.special 
+						background-image: url('./imgs/special_3@2x.png')
 
+		.foods-wrap
+			flex: 1
+			.food-list
+				.title
+					height: 26px
+					color: rgb(147,153,159)
+					font-size: 12px
+					line-height: 26px
+					background-color: #f3f5f7
+					padding-left: 12px
+					border-left: 2px solid #d9dde1
+				.food-item
+					position: relative
+					display: flex
+					margin: 18px
+					padding-bottom: 18px
+					border-bottom: 1px solid rgba(7,17,27,0.1)
+					&:last-child 
+						border-bottom: none
+						margin-bottom: 0
+					.icon 
+						flex: 0 0 57px
+						margin-right: 10px
+				  .content
+						flex: 1
+					.name 
+						font-size: 14px
+						line-height: 14px
+						color: rgb(7,17,27)
+						margin: 2px 0 8px 0
+				  .desc 
+						margin: 8px 0
+					.extra, .desc
+						font-size: 10px
+						line-height: 10px
+						color: rgb(147,153,159)
+					.count 
+						margin-right: 12px
+					.price 
+						line-height: 24px
+						font-weight: 700
+						.now
+							font-size: 14px
+							color: rgb(240,20,20)
+							line-height: 24px
+							margin-right: 8px
+						.old
+							text-decoration: line-through
+							font-size: 10px
+							line-height: 24px
+							color: rgb(147,153,159)
+					.cart-wrap 
+						position: absolute
+						right: 0
+						bottom: 12px
 </style>
