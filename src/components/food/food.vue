@@ -155,6 +155,7 @@
 			width: 100%
 			height: 0
 			padding-top: 100%
+			background-color: #333
 			img
 				position: absolute
 				left: 0
