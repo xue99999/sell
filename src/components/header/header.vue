@@ -35,6 +35,9 @@
 				<div class="detail-wrap clearfix">
 					<div class="detail-main">
 						<h1 class="name">{{ seller.name }}</h1>
+						<div class="star-wrap">
+							<star :size="36" :score="seller.score"></star>
+						</div>
 						<div class="coupon-wrap">
 							<div class="line"></div>
 							<div class="coupon">优惠信息</div>
@@ -67,6 +70,8 @@
 </template>
 
 <script>
+	import star from 'components/star/star.vue';
+
 	export default {
 		name: 'header',
 		data() {
@@ -85,7 +90,8 @@
 			close() {
 				this.detailShow = false;
 			}
-		}
+		},
+		components: { star }
 	}
 </script>
 
@@ -248,6 +254,12 @@
 		overflow: auto;
 		transition: all .5s;
 	}
+	.detail .star-wrap {
+		height: 24px;
+		text-align: center;
+		margin-top: 16px;
+	}
+
 	.detail-enter-active {
 	  transition: all .3s ease;
 	}
