@@ -1,5 +1,5 @@
 <template>
-	<div class="star star-48" >
+	<div class="star" :class="startType" >
 		<span v-for="itemClass in itemClasses" :class="itemClass" class="star-item"></span>
 	</div>
 </template>
@@ -71,7 +71,7 @@
 			.star-item
 				width: 15px
 				height: 15px
-				margin-right: 16px
+				margin-right: 6px
 				background-size: 15px 15px
 				&:last-child
 					margin-right: 0

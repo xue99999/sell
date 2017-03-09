@@ -2,8 +2,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router/index.js'
 import VueResource from 'vue-resource'
-import icon from 'common/css/icon.css'
 import weui from 'static/css/weui.css'
+
+import icon from 'common/css/index.styl'
 
 Vue.use(VueResource);
 

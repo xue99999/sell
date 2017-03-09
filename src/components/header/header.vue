@@ -36,7 +36,7 @@
 					<div class="detail-main">
 						<h1 class="name">{{ seller.name }}</h1>
 						<div class="star-wrap">
-							<star :size="36" :score="seller.score"></star>
+							<star :size="36" :score="seller.serviceScore"></star>
 						</div>
 						<div class="coupon-wrap">
 							<div class="line"></div>
