@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <transition enter-class="actionSheet-enter" enter-active-class="actionSheet-enter-active" leave-active-class="actionSheet-leave-active">
+            <transition name="fade">
                 <div v-show="listShow" class="shopcart-list">
                     <div class="list-header">
                         <h1 class="title">购物车</h1>
@@ -259,40 +259,42 @@
         z-index: 80
         background-color: rgba(7,17,27,0.6)
         &.fade-enter-active, &.fade-leave-active {
+          opacity: 1
           transition: all 0.5s
         }
         &.fade-enter, &.fade-leave-active {
           opacity: 0
+          background-color: rgb(7,17,27)
         }
     .shopcart-list
-        position: absolute;
-        width: 100%;
-        left: 0;
-        top: 0;
+        position: absolute
+        width: 100%
+        left: 0
+        top: 0
         z-index: -1
-        transition: all 0.3s
-        &.actionSheet-enter-active, &.actionSheet-leave-active {
-          transition: all .3s;
-          -webkit-transform: translate3d(0,-100%,0) !important;
+        transform: translate3d(0,-100%,0)
+        &.fade-enter-active, &.fade-leave-active {
+          transition: all 0.5s
+          transform translate3d(0, -100%, 0)
         }
-        &.actionSheet-enter, &.actionSheet-leave-active {
-            webkit-transform: translate3d(0,0,0)
+        &.fade-enter, &.fade-leave-active {
+          transform translate3d(0, 0, 0)
         }
         .list-header
-            height: 40px;
-            line-height: 40px;
-            border-bottom: 1px solid rgba(7,17,27,0.1);
-            background-color: #f3f5f7;
-            padding: 0 18px;
-            box-sizing: border-box;
+            height: 40px
+            line-height: 40px
+            border-bottom: 1px solid rgba(7,17,27,0.1)
+            background-color: #f3f5f7
+            padding: 0 18px
+            box-sizing: border-box
             .title 
-                font-size: 14px;
-                float: left;
-                color: rgb(7,17,27);
+                font-size: 14px
+                float: left
+                color: rgb(7,17,27)
             .empty
-                font-size: 12px;
-                float: right;
-                color: rgb(0,160,220);
+                font-size: 12px
+                float: right
+                color: rgb(0,160,220)
         .list-con
             box-sizing: border-box
             background-color: #fff

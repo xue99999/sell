@@ -55,10 +55,11 @@
 
 <script>
 	import BScroll from 'better-scroll';
+	import { formatDate } from 'common/js/date'
+	
 	import cartControl from 'components/cartControl/cartControl'
 	import split from 'components/split/split'
 	import ratingselect from 'components/ratingselect/ratingselect'
-	import { formatDate } from 'common/js/date'
 
 	export default {
 		data() {

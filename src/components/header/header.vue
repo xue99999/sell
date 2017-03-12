@@ -96,6 +96,8 @@
 </script>
 
 <style lang="stylus">
+	@import '../../common/css/mixin.styl'
+	
 	.detail-enter-active
 	  transition: all .3s ease
 	.detail-leave-active
@@ -139,8 +141,9 @@
 						vertical-align: top
 						width: 30px
 						height: 18px
-						background: url('./imgs/brand@2x.png') no-repeat
+						bg-image('./imgs/brand')
 						background-size: 30px 18px
+						background-repeat: no-repeat
 					.name
 						margin-left: 6px
 						font-size: 16px
@@ -160,15 +163,15 @@
 						background-size: 12px 12px
 						background-repeat: no-repeat
 						&.decrease
-							background-image: url('./imgs/decrease_1@2x.png')
+							bg-image('./imgs/decrease_1')
 						&.discount
-							background-image: url('./imgs/discount_1@2x.png')
+							bg-image('./imgs/discount_1')
 						&.guarantee
-							background-image: url('./imgs/guarantee_1@2x.png')
+							bg-image('./imgs/guarantee_1')
 						&.invoice
-							background-image: url('./imgs/invoice_1@2x.png')
+							bg-image('./imgs/invoice_1')
 						&.special
-							background-image: url('./imgs/special_1@2x.png')
+							bg-image('./imgs/special_1')
 					.text
 						font-size: 10px
 						line-height: 12px
@@ -204,7 +207,7 @@
 				display: inline-block
 				width: 22px
 				height: 12px
-				background-image: url('./imgs/bulletin@2x.png')
+				bg-image('./imgs/bulletin')
 				background-size: 22px 12px
 				background-repeat: no-repeat
 				vertical-align: top
@@ -297,15 +300,15 @@
 							margin-right: 6px
 							vertical-align: top
 							&.decrease
-								background-image: url('./imgs/decrease_2@2x.png')
+								bg-image('./imgs/decrease_2')
 							&.discount 
-								background-image: url('./imgs/discount_2@2x.png')
+								bg-image('./imgs/discount_2')
 							&.guarantee
-								background-image: url('./imgs/guarantee_2@2x.png')
+								bg-image('./imgs/guarantee_2')
 							&.invoice
-								background-image: url('./imgs/invoice_2@2x.png')
+								bg-image('./imgs/invoice_2')
 							&.special
-								background-image: url('./imgs/special_2@2x.png')
+								bg-image('./imgs/special_2')
 						.text 
 							line-height: 16px
 							font-weight: 200

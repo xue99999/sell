@@ -12,11 +12,14 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view :seller="seller"></router-view>
+    <keep-alive>
+      <router-view :seller="seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
+import { urlParse } from 'common/js/util.js'
 import header from 'components/header/header'
 import toast from 'components/toast/toast'
 import actionSheet from 'components/actionSheet/actionSheet'
@@ -28,40 +31,24 @@ export default {
   name: 'app',
   data() {
     return {
-      seller: {},
+      seller: {
+        id: (() => {
+            let query = urlParse();
+            return query.id;
+        })()
+      },
       listItem: ['下拉菜单1', '下拉菜单2', '下拉菜单3']
     }
   },
-  methods:{
-    showToast(){
-      // this.$refs.toast.show('测试','fail');
-      // this.$refs.actionSheet.show();
-      // this.$refs.modal.show('模态框','我是薛钧',true,'前往主页','离开');
-      this.$refs.modal.show('模态框','我是薛钧',false,'知道了');
-    },
-    getIndex(index) {
-      console.log(index);
-      /*
-      * 此处写成功后的回调
-      */
-    },
-    confirm() {
-      console.log('用户点击确定按钮');
-    }
-  },
   created() {
-    this.$http.get('/api/seller').then( res => {
+    this.$http.get('/api/seller?id='+this.seller.id).then( res => {
       if (res.body.errno === ERR_OK) {
-        this.seller = res.body.data;
-        console.log(this.seller)
+        this.seller = Object.assign({}, this.seller, res.body.data);
       }
     });
   },
   components: {
-    'v-header': header,
-    'toast': toast,
-    'actionSheet': actionSheet,
-    'modal': modal
+    'v-header': header
   }
 }
 </script>

@@ -146,6 +146,8 @@
 </script>
 
 <style lang="stylus">
+	@import '../../common/css/mixin.styl'
+
 	.goods
 		display: flex
 		width: 100%
@@ -187,15 +189,15 @@
 					background-size: 12px 12px
 					background-repeat: no-repeat
 					&.decrease 
-						background-image: url('./imgs/decrease_3@2x.png')
+						bg-image('./imgs/decrease_3')
 					&.discount 
-						background-image: url('./imgs/discount_3@2x.png')
+						bg-image('./imgs/discount_3')
 					&.guarantee 
-						background-image: url('./imgs/guarantee_3@2x.png')
+						bg-image('./imgs/guarantee_3')
 					&.invoice 
-						background-image: url('./imgs/invoice_3@2x.png')
+						bg-image('./imgs/invoice_3')
 					&.special 
-						background-image: url('./imgs/special_3@2x.png')
+						bg-image('./imgs/special_3')
 
 		.foods-wrap
 			flex: 1
