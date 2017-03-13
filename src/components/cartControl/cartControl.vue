@@ -23,6 +23,8 @@
 				} else {
 					this.food.count++;
 				}
+
+				this.$emit('addCart', event.target);
 			},
 			remove(e) {
 				if (!e._constructed) return;

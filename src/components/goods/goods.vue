@@ -74,6 +74,10 @@
 		        });
 		      }
 		    });
+
+		    this.$on('addCart', (el) => {
+		    	console.log(12323)
+		    })
 		},
 		computed: {
 			currentIndex() {

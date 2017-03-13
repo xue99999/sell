@@ -43,7 +43,16 @@
                     </div>
                 </div>
             </transition>
+            
+            <div class="ball-container">
+                <div class="ball" v-for="ball in balls" v-show="ball.show">
+                    <transition name="drop">
+                    <div class="inner"></div>
+                    </transition>
+                </div>
+            </div>
         </div>
+        
         <transition name="fade">
             <div class="list-mask" @click="hideListMask" v-show="listShow">
                 
@@ -59,6 +68,17 @@
     export default {
         data() {
             return {
+                balls: [{
+                    show: false
+                }, {
+                    show: false
+                }, {
+                    show: false
+                }, {
+                    show: false
+                }, {
+                    show: false
+                }],
                 fold: false
             }
         },
@@ -320,4 +340,18 @@
                     position: absolute
                     right: 0
                     top: 6px           
+</style>
+
+<style lang="stylus">
+    .ball-container
+        .ball
+            position: fixed
+            left: 32px
+            bottom: 32px
+            z-index: 110
+            .inner
+                width: 16px
+                height: 16px
+                border-radius: 50%
+                background-color: rgb(0,160,220)
 </style>
