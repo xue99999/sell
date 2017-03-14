@@ -36,7 +36,7 @@
                                     <span>￥{{food.price*food.count}}</span>
                                 </div>
                                 <div class="cartControl-wrap">
-                                    <cartControl :food="food"></cartControl>
+                                    <cartControl @add="drop" :food="food"></cartControl>
                                 </div>
                             </li>
                         </ul>
@@ -45,9 +45,11 @@
             </transition>
             
             <div class="ball-container">
-                <div class="ball" v-for="ball in balls" v-show="ball.show">
-                    <transition name="drop">
-                    <div class="inner"></div>
+                <div v-for="ball in balls">
+                    <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop"> 
+                        <div class="ball" v-show="ball.show">
+                            <div class="inner inner-hook"></div>
+                        </div>
                     </transition>
                 </div>
             </div>
@@ -79,6 +81,7 @@
                 }, {
                     show: false
                 }],
+                dropBalls: [],
                 fold: false
             }
         },
@@ -137,6 +140,37 @@
             }
         },
         methods: {
+            beforeDrop(el) {
+                let count = this.balls.length;
+                while (count--) {
+                    let ball = this.balls[count];
+                    if (ball.show) {
+                        let rect = ball.el.getBoundingClientRect();
+                        let x = rect.left - 32;
+                        let y = -(window.innerHeight - rect.top - 32);
+                        el.style.transform = `translate3d(0,${y}px,0)`;
+                        let inner = el.getElementsByClassName('inner-hook')[0];
+                        inner.style.transform = `translate3d(${x}px,0,0)`;
+                    }
+                }
+            },
+            dropping(el) {
+                /* eslint-disable no-unused-vars */
+                let rf = el.offsetHeight;
+                //重绘,少了这句话 不会有动画发生
+                this.$nextTick(() => {
+                    el.style.transform = 'translate3d(0,0,0)';
+                    let inner = el.getElementsByClassName('inner-hook')[0];
+                    inner.style.transform = 'translate3d(0,0,0)';
+                });
+            },
+            afterDrop(el) {
+                let ball = this.dropBalls.shift();
+                if (ball) {
+                    ball.show = false;
+                    el.style.display = 'none';
+                }
+            },
             toggleList() {
                 if (!this.totalCount) {
                     return;
@@ -157,6 +191,18 @@
                     alert(`￥还差${diff}元起送`);
                 } else {
                     alert(`需支付${this.totalPrice}元`);
+                }
+            },
+            drop(el) {
+                //此方法父组件调用
+                for (let i = 0; i < this.balls.length; i++) {
+                    let ball = this.balls[i];
+                    if (!ball.show) {
+                        ball.show = true;
+                        ball.el = el;
+                        this.dropBalls.push(ball);
+                        return ;
+                    }
                 }
             }
         }
@@ -349,9 +395,11 @@
             left: 32px
             bottom: 32px
             z-index: 110
+            transition: all .4s cubic-bezier(.39,-0.32,.83,.67)
             .inner
                 width: 16px
                 height: 16px
                 border-radius: 50%
                 background-color: rgb(0,160,220)
+                transition: all .4s linear
 </style>

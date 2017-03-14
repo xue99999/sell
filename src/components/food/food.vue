@@ -17,7 +17,7 @@
 						<span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
 					</div>
 					<div class="cartControl-wrap">
-						<cart-control :food="food"></cart-control>
+						<cart-control @add="addFood" :food="food"></cart-control>
 					</div>
 					<transition name="fade">
 					<div class="buy" @click.stop="addFirst" v-show="!food.count || food.count===0">加入购物车</div>
@@ -118,6 +118,9 @@
 				this.$nextTick(() => {
 					this.scroll.refresh();
 				});
+			},
+			addFood(target) {
+				this.$emit('add', target);
 			}
 		},
 		filters: {
