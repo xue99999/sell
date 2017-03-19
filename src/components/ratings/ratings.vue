@@ -28,7 +28,7 @@
 			
 			<split></split>
 
-			<ratingselect v-on:rating-select="select" v-on:toggle-content="toggleContent" :ratings="ratings" :onlyContent="onlyContent" :desc="desc" :selectType="selectType"></ratingselect>
+			<ratingselect @rating-select="select" @toggle-content="toggleContent" :ratings="ratings" :onlyContent="onlyContent" :selectType="selectType"></ratingselect>
 
 			<div class="ratings-wrap">
 				<ul>
@@ -44,8 +44,7 @@
 							</div>
 							<p class="text">{{rating.text}}</p>
 							<div class="recommand" v-show="rating.recommend">
-								<span class="icon-thumb_up"></span>
-								<span class="icon-thumb_down"></span>
+								<span v-show="selectType!==1" class="icon-thumb_up"></span>
 								<div class="recommend-item" v-for="item in rating.recommend">
 									{{item}}
 								</div>
@@ -75,12 +74,7 @@
 			return {
 				ratings: [],
 				onlyContent: false,
-				selectType: 2,
-				desc: {
-					'all': '全部',
-					'positive': '满意',
-					'negative': '不满意'
-				}
+				selectType: 2
 			}
 		},
 		props: {
@@ -102,8 +96,8 @@
 			})
 		},
 		methods: {
-			toggleContent(flag) {
-				this.onlyContent = flag;
+			toggleContent() {
+				this.onlyContent = !this.onlyContent;
 				this.$nextTick(() => {
 					this.scroll.refresh();
 				});

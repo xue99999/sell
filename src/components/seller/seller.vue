@@ -93,8 +93,7 @@
 		},
 		props: {
 			seller: {
-				type: Object,
-				default: []
+				type: Object
 			}
 		},
 		computed: {
@@ -104,21 +103,21 @@
 		},
 		created() {
 			//DOM元素还没创建好
-			console.log(this.favorite)
 			console.log('created')
 			this.classMap = ['decrease', 'discount', 'guarantee', 'invoice', 'special'];
 		},
 		mounted() {
-			//DOM已经创建完毕
 			console.log('先走了mounted')
 			this._initScroll();
 			this._initPics();
 		},
 		watch: {
-			seller: function() {
+			seller() {
 				console.log('在走了watch');
-				this._initScroll();
-				this._initPics();
+				this.$nextTick(() => {
+					this._initScroll();
+					this._initPics();
+				});
 			}
 		},
 		methods: {
@@ -134,11 +133,8 @@
 					this.scroll = new BScroll(this.$refs.seller, {
 		              click: true
 		            });
-		            console.log(11111)
 				} else {
-					console.log(22222)
 					this.scroll.refresh();
-					console.log(33)
 				}
 			},
 			_initPics() {

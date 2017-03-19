@@ -37,10 +37,10 @@
 				type: Object,
 				default() {
 					return {
-						'all': '全部',
-						'positive': '满意',
-						'negative': '不满意'
-					}
+						all: '全部',
+						positive: '满意',
+						negative: '不满意'
+					};
 				}
 			}
 		},
@@ -61,15 +61,13 @@
 				if (!event._constructed) {
 					return;
 				}
-				this.selectType = type;
 				this.$emit('rating-select', type);
 			},
 			toggleContent(event) {
 				if (!event._constructed) {
 					return;
 				}
-				this.onlyContent = !this.onlyContent;
-				this.$emit('toggle-content',this.onlyContent);
+				this.$emit('toggle-content');
 			}
 		}
 	}
