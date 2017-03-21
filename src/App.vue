@@ -21,9 +21,6 @@
 <script>
 import { urlParse } from 'common/js/util.js'
 import header from 'components/header/header'
-import toast from 'components/toast/toast'
-import actionSheet from 'components/actionSheet/actionSheet'
-import modal from 'components/modal/modal'
 
 const ERR_OK = 0;
 
@@ -36,8 +33,7 @@ export default {
             let query = urlParse();
             return query.id;
         })()
-      },
-      listItem: ['下拉菜单1', '下拉菜单2', '下拉菜单3']
+      }
     }
   },
   created() {

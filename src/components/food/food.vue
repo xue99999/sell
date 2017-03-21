@@ -94,6 +94,7 @@
 				if (!event._constructed) {
 					return;
 				}
+				this.$emit('add', event.target);
 				this.$set(this.food,'count',1);
 			},
 			needShow(type, text) {

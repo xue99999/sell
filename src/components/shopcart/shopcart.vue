@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <transition name="fade">
+            <transition name="fold">
                 <div v-show="listShow" class="shopcart-list">
                     <div class="list-header">
                         <h1 class="title">购物车</h1>
@@ -209,113 +209,162 @@
     }
 </script>
 
-<style>
-    .shopcart {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        height: 48px;
-        width: 100%;
-        background-color: #141d27;
-        z-index: 99;
-    }
-    .con {
-        display: flex;
-        height: 100%;
-        width: 100%;
-        font-size: 0;
-    }
-    .con-left {
-        flex: 1;
-        position: relative;
-    }
-    .con-left .logo-wrap {
-        display: inline-block;
-        position: relative;
-        box-sizing: border-box;
-        top: -10px;
-        width: 56px;
-        height: 56px;
-        margin: 0 12px;
-        padding: 6px;
-        background-color: #141d27;
-        border-radius: 50%;
-        vertical-align: top;
-    }
-    .con-left .logo {
-        border-radius: 50%;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        background-color: #2b343c;
-    }
-    .con-left .logo.highlight {
-        background-color: rgb(0,160,220);
-    }
-    .con-left .num {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 16px;
-        height: 16px;
-        padding: 0 6px;
-        color: #fff;
-        background-color: rgb(240,20,20);
-        font-size: 12px;
-        text-align: center;
-        border-radius: 16px;
-        line-height: 16px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
-    }
-    .con-left .icon-shopping_cart {
-        font-size: 24px;
-        line-height: 44px;
-        color: #80858a;
-    }
-    .con-left .icon-shopping_cart.highlight {
-        color: #fff;
-    }
-    .con-left .price, .con-left .desc, .con-right {
-        display: inline-block;
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 24px;
-        color: rgba(255,255,255,0.4);
-    }
-    .con-left .price {
-        margin-top: 12px;
-        color: rgba(255,255,255,0.4);
-        padding-right: 12px;
-        border-right: 1px solid rgba(255,255,255,.1);
-    }
-    .con-left .price.highlight {
-        color: #fff;
-    }
-    .con-left .desc {
-        display: inline-block;
-        margin-left: 12px;
-        font-size: 14px;
-    }
-    .con-right {
-        flex: 0 0 105px;
-    }
-    .con-right .pay {
-        font-size: 12px;
-        text-align: center;
-        line-height: 48px;
-        background-color: #2B333B;
-    }
-    .con-right .pay.not-enough {
-        background-color: #2B333B;
-    }
-    .con-right .pay.enough {
-        background-color: #00b43c;
-        color: #fff;
-    }
-</style>
 <style lang="stylus">
+    @import '../../common/css/mixin.styl'
     
+    .shopcart
+        position: fixed
+        bottom: 0
+        left: 0
+        height: 48px
+        width: 100%
+        background-color: #141d27
+        z-index: 99
+        .con
+            display: flex
+            height: 100%
+            width: 100%
+            font-size: 0
+            .con-left
+                flex: 1
+                position: relative
+                .logo-wrap
+                    display: inline-block
+                    position: relative
+                    box-sizing: border-box
+                    top: -10px
+                    width: 56px
+                    height: 56px
+                    margin: 0 12px
+                    padding: 6px
+                    background-color: #141d27
+                    border-radius: 50%
+                    vertical-align: top
+                    .logo
+                        border-radius: 50%
+                        width: 100%
+                        height: 100%
+                        text-align: center
+                        background-color: #2b343c
+                        &.highlight 
+                            background-color: rgb(0,160,220)
+                    .num
+                        position: absolute
+                        top: 0
+                        right: 0
+                        width: 16px
+                        height: 16px
+                        padding: 0 6px
+                        color: #fff
+                        background-color: rgb(240,20,20)
+                        font-size: 12px
+                        text-align: center
+                        border-radius: 16px
+                        line-height: 16px
+                        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
+                    .icon-shopping_cart
+                        font-size: 24px
+                        line-height: 44px
+                        color: #80858a
+                        &.highlight
+                            color: #fff
+                .price, .desc
+                    display: inline-block
+                    font-size: 16px
+                    font-weight: 700
+                    line-height: 24px
+                    color: rgba(255,255,255,0.4)
+                .price
+                    margin-top: 12px
+                    color: rgba(255,255,255,0.4)
+                    padding-right: 12px
+                    border-right: 1px solid rgba(255,255,255,.1)
+                    &.highlight
+                        color: #fff
+                .desc
+                    display: inline-block
+                    margin-left: 12px
+                    font-size: 14px
+            .con-right
+                flex: 0 0 105px
+                .pay
+                    font-size: 12px
+                    text-align: center
+                    line-height: 48px
+                    background-color: #2B333B
+                    &.not-enough
+                        background-color: #2B333B
+                    &.enough
+                        background-color: #00b43c
+                        color: #fff
 
+        .shopcart-list
+            position: absolute
+            left: 0
+            top: 0
+            z-index: -1
+            width: 100%
+            transform: translate3d(0, -100%, 0)
+            &.fold-enter-active, &.fold-leave-active
+              transition: all 0.5s
+            &.fold-enter, &.fold-leave-active
+              transform: translate3d(0, 0, 0)
+            .list-header
+                height: 40px
+                line-height: 40px
+                border-bottom: 1px solid rgba(7,17,27,0.1)
+                background-color: #f3f5f7
+                padding: 0 18px
+                box-sizing: border-box
+                .title 
+                    font-size: 14px
+                    float: left
+                    color: rgb(7,17,27)
+                .empty
+                    font-size: 12px
+                    float: right
+                    color: rgb(0,160,220)
+            .list-con
+                box-sizing: border-box
+                background-color: #fff
+                padding: 0 18px
+                max-height: 217px
+                overflow: hidden
+                .food
+                    position: relative
+                    height: 24px
+                    padding: 12px 0
+                    border-1px(rgba(7, 17, 27, 0.1))
+                    .name
+                        color: rgb(7,17,27)
+                        font-size: 14px
+                        line-height: 24px
+                    .price
+                        position: absolute
+                        font-size: 14px
+                        font-weight: 700
+                        color: rgb(240,20,20)
+                        right: 90px
+                        top: 17px
+                    .cartControl-wrap
+                        position: absolute
+                        right: 0
+                        top: 6px
+        
+        .ball-container
+            .ball
+                position: fixed
+                left: 32px
+                bottom: 32px
+                z-index: 110
+                transition: all .4s cubic-bezier(.39,-0.32,.83,.67)
+                .inner
+                    width: 16px
+                    height: 16px
+                    border-radius: 50%
+                    background-color: rgb(0,160,220)
+                    transition: all .4s linear
+                    
     .list-mask
         position: fixed
         width: 100%
@@ -324,82 +373,11 @@
         height: 100%
         z-index: 80
         background-color: rgba(7,17,27,0.6)
-        &.fade-enter-active, &.fade-leave-active {
+        &.fade-enter-active, &.fade-leave-active
           opacity: 1
           transition: all 0.5s
-        }
-        &.fade-enter, &.fade-leave-active {
+        
+        &.fade-enter, &.fade-leave-active
           opacity: 0
           background-color: rgb(7,17,27)
-        }
-    .shopcart-list
-        position: absolute
-        width: 100%
-        left: 0
-        top: 0
-        z-index: -1
-        transform: translate3d(0,-100%,0)
-        &.fade-enter-active, &.fade-leave-active {
-          transition: all 0.5s
-          transform translate3d(0, -100%, 0)
-        }
-        &.fade-enter, &.fade-leave-active {
-          transform translate3d(0, 0, 0)
-        }
-        .list-header
-            height: 40px
-            line-height: 40px
-            border-bottom: 1px solid rgba(7,17,27,0.1)
-            background-color: #f3f5f7
-            padding: 0 18px
-            box-sizing: border-box
-            .title 
-                font-size: 14px
-                float: left
-                color: rgb(7,17,27)
-            .empty
-                font-size: 12px
-                float: right
-                color: rgb(0,160,220)
-        .list-con
-            box-sizing: border-box
-            background-color: #fff
-            padding: 0 18px
-            max-height: 217px
-            overflow: hidden
-            .food
-                position: relative
-                height: 24px
-                padding: 12px 0
-                .name
-                    color: rgb(7,17,27)
-                    font-size: 14px
-                    line-height: 24px
-                .price
-                    position: absolute
-                    font-size: 14px
-                    font-weight: 700
-                    color: rgb(240,20,20)
-                    right: 90px
-                    top: 12px
-                .cartControl-wrap
-                    position: absolute
-                    right: 0
-                    top: 6px           
-</style>
-
-<style lang="stylus">
-    .ball-container
-        .ball
-            position: fixed
-            left: 32px
-            bottom: 32px
-            z-index: 110
-            transition: all .4s cubic-bezier(.39,-0.32,.83,.67)
-            .inner
-                width: 16px
-                height: 16px
-                border-radius: 50%
-                background-color: rgb(0,160,220)
-                transition: all .4s linear
 </style>

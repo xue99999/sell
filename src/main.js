@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router/index.js'
 import VueResource from 'vue-resource'
-import weui from 'static/css/weui.css'
 
 import icon from 'common/css/index.styl'
 
