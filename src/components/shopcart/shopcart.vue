@@ -222,8 +222,8 @@
         z-index: 99
         .con
             display: flex
-            height: 100%
-            width: 100%
+            background: #141d27
+            //一定要加背景颜色,不然你就会看到不一样的动画
             font-size: 0
             .con-left
                 flex: 1
@@ -306,7 +306,7 @@
             width: 100%
             transform: translate3d(0, -100%, 0)
             &.fold-enter-active, &.fold-leave-active
-              transition: all 0.5s
+              transition: all 0.3s
             &.fold-enter, &.fold-leave-active
               transform: translate3d(0, 0, 0)
             .list-header
@@ -349,7 +349,7 @@
                     .cartControl-wrap
                         position: absolute
                         right: 0
-                        top: 6px
+                        bottom: 6px
         
         .ball-container
             .ball
@@ -372,12 +372,11 @@
         top: 0
         height: 100%
         z-index: 80
+        backdrop-filter: blur(10px)
         background-color: rgba(7,17,27,0.6)
         &.fade-enter-active, &.fade-leave-active
-          opacity: 1
           transition: all 0.5s
-        
         &.fade-enter, &.fade-leave-active
           opacity: 0
-          background-color: rgb(7,17,27)
+          background: rgb(7,17,27)
 </style>
